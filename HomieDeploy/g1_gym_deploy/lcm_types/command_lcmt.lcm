@@ -1,0 +1,4 @@
+struct command_lcmt
+{
+    double command[4];
+}
