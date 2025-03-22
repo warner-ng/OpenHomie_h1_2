@@ -1,0 +1,14 @@
+{"time":"2025-03-21T21:12:16.426426369+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/wubinghuan/projects/OpenHomie-main/OpenHomie-main/HomieRL/legged_gym/legged_gym/scripts/wandb/offline-run-20250321_211216-w3lfwl9n/logs/debug-core.log"}
+{"time":"2025-03-21T21:12:16.533051658+08:00","level":"INFO","msg":"created new stream","id":"w3lfwl9n"}
+{"time":"2025-03-21T21:12:16.533079988+08:00","level":"INFO","msg":"stream: started","id":"w3lfwl9n"}
+{"time":"2025-03-21T21:12:16.533096878+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:12:16.533100168+08:00","level":"INFO","msg":"sender: started","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:12:16.533191348+08:00","level":"INFO","msg":"handler: started","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:12:16.53848823+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-21T21:46:25.633098347+08:00","level":"INFO","msg":"stream: closing","id":"w3lfwl9n"}
+{"time":"2025-03-21T21:46:25.633137427+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-21T21:46:25.633951127+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-21T21:46:25.634191557+08:00","level":"INFO","msg":"handler: closed","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:46:25.634206117+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:46:25.634229827+08:00","level":"INFO","msg":"sender: closed","stream_id":"w3lfwl9n"}
+{"time":"2025-03-21T21:46:25.634324437+08:00","level":"INFO","msg":"stream: closed","id":"w3lfwl9n"}
