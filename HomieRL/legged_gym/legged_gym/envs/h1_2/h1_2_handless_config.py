@@ -297,3 +297,5 @@ class H1_2RoughCfgPPO( LeggedRobotCfgPPO ):
         logger = "wandb"        
         # logger = "tensorboard"        
         wandb_user = "" # enter your own wandb user name here
+        
+# just a demo for git
