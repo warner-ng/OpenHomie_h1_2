@@ -51,8 +51,7 @@ Thumbs.db
 # VS Code
 .vscode
 # logs
-legged_gym/logs
-logs
+
 runs
 
 # other
