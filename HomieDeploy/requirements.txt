@@ -1,5 +1,0 @@
-pyrealsense2
-numpy
-opencv-python
-lcm
-onnxruntime

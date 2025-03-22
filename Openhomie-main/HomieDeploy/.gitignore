@@ -1,0 +1,12 @@
+# IDE
+.vscode
+
+# cpp
+build
+
+#cland
+.cache
+
+*/build
+
+*/__pycache__

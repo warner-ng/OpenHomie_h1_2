@@ -1,7 +1,0 @@
-{"time":"2025-03-21T20:05:42.635426734+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/wubinghuan/projects/OpenHomie-main/OpenHomie-main/HomieRL/legged_gym/legged_gym/scripts/wandb/offline-run-20250321_200542-th32hfjf/logs/debug-core.log"}
-{"time":"2025-03-21T20:05:42.84377204+08:00","level":"INFO","msg":"created new stream","id":"th32hfjf"}
-{"time":"2025-03-21T20:05:42.84381186+08:00","level":"INFO","msg":"stream: started","id":"th32hfjf"}
-{"time":"2025-03-21T20:05:42.84399639+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"th32hfjf"}
-{"time":"2025-03-21T20:05:42.84413266+08:00","level":"INFO","msg":"sender: started","stream_id":"th32hfjf"}
-{"time":"2025-03-21T20:05:42.84409877+08:00","level":"INFO","msg":"handler: started","stream_id":"th32hfjf"}
-{"time":"2025-03-21T20:05:42.853026813+08:00","level":"INFO","msg":"Starting system monitor"}

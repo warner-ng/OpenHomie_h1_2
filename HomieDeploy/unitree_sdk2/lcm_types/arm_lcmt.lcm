@@ -1,4 +1,0 @@
-struct arm_action_lcmt
-{
-    double act[14];
-}

@@ -1,4 +1,0 @@
-struct body_record_lcmt 
-{
-    float q[27];
-}
