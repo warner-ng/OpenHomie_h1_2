@@ -33,7 +33,7 @@ import numpy as np
 
 class H1_2RoughCfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.05] # x,y,z [m] 需要改动，以让h1_2能够zhili
+        pos = [0.0, 0.0, 1.05]                                                              # x,y,z [m] 需要改动，以让h1_2能够直立
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'left_hip_yaw_joint' : 0. ,   
            'left_hip_roll_joint' : 0,               
@@ -128,7 +128,7 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             lin_vel_y = [-0.5, 0.5]   # min max [m/s]
             ang_vel_yaw = [-0.8, 0.8]    # min max [rad/s]
             heading = [-3.14, 3.14]
-            height = [-0.5, 0.0]
+            height = [-0.5, 0.0]                                                             # 疑问，这个会对Height tracking 有影响吗
 
     class asset( LeggedRobotCfg.asset ):
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/h1_2_description/h1_2_handless.urdf'
@@ -246,8 +246,8 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         max_contact_force = 400.
         least_feet_distance = 0.2 
         least_feet_distance_lateral = 0.2 #去看，决定了行走步态（knee也是如此）
-        most_feet_distance_lateral = 0.35
-        most_knee_distance_lateral = 0.35
+        most_feet_distance_lateral = 0.35 
+        most_knee_distance_lateral = 0.35 #相对应的knee
         least_knee_distance_lateral = 0.2
         clearance_height_target = 0.14
         
