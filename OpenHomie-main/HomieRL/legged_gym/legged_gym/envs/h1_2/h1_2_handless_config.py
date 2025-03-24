@@ -128,7 +128,7 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             lin_vel_y = [-0.5, 0.5]   # min max [m/s]
             ang_vel_yaw = [-0.8, 0.8]    # min max [rad/s]
             heading = [-3.14, 3.14]
-            height = [-0.5, 0.0]                                                             # 疑问，这个会对Height tracking 有影响吗
+            height = [-0.8, 0.0]                 # 疑问，这个会对Height tracking 有影响吗  有的，一開始设置了-0.5 ，因为机器人多了0.3米，所以我下蹲距离（负数）增加0.3米
 
     class asset( LeggedRobotCfg.asset ):
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/h1_2_description/h1_2_handless.urdf'
@@ -221,7 +221,7 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             feet_clearance = -0.25
             feet_distance_lateral = 0.5
             knee_distance_lateral = 1.0
-            feet_ground_parallel = -2.0
+            feet_ground_parallel = -2.
             feet_parallel = -3.0
             smoothness = -0.05
             joint_power = -2e-5
