@@ -292,7 +292,7 @@ class G1RoughCfgPPO( LeggedRobotCfgPPO ):
         max_iterations = 100000
         run_name = ''
         experiment_name = ''
-        wandb_project = ""
-        logger = "wandb"        
-        # logger = "tensorboard"        
-        wandb_user = "" # enter your own wandb user name here
+        # wandb_project = ""
+        # logger = "wandb"        
+        logger = "tensorboard"        
+        # wandb_user = "" # enter your own wandb user name here

@@ -1084,7 +1084,7 @@ class LeggedRobot(BaseTask):
     
     def _reward_lin_vel_z(self):
         # Penalize z axis base linear velocity
-        return torch.square(self.base_lin_vel[:, 2]) *  (self.commands[:, 4] >= 0.735)
+        return torch.square(self.base_lin_vel[:, 2]) *  (self.commands[:, 4] >= 1)  # 跟随h1_2改动
     
     def _reward_ang_vel_xy(self):
         # Penalize xy axes base angular velocity
@@ -1106,10 +1106,10 @@ class LeggedRobot(BaseTask):
         return torch.exp(-height_error * 4)
     
     def _reward_deviation_hip_joint(self):
-        return torch.sum(torch.square(self.dof_pos - self.default_dof_pos)[:, self.hip_joint_indices], dim=-1) *  (self.commands[:, 4] >= 0.735)
+        return torch.sum(torch.square(self.dof_pos - self.default_dof_pos)[:, self.hip_joint_indices], dim=-1) *  (self.commands[:, 4] >= 1)
     
     def _reward_deviation_ankle_joint(self):
-        return torch.sum(torch.square(self.dof_pos - self.default_dof_pos)[:, self.ankle_joint_indices], dim=-1) *  (self.commands[:, 4] >= 0.735)
+        return torch.sum(torch.square(self.dof_pos - self.default_dof_pos)[:, self.ankle_joint_indices], dim=-1) *  (self.commands[:, 4] >= 1)
     
     def _reward_deviation_knee_joint(self):
         height_error = (self.root_states[:, 2] - self.commands[:, 4])
@@ -1143,7 +1143,7 @@ class LeggedRobot(BaseTask):
         feet_height, feet_height_var = self._get_feet_heights()
         height_error = torch.square(feet_height - self.cfg.rewards.clearance_height_target).view(self.num_envs, -1)
         feet_leteral_vel = torch.sqrt(torch.sum(torch.square(feetvel_in_body_frame[:, :, :2]), dim=2)).view(self.num_envs, -1)
-        return torch.sum(height_error * feet_leteral_vel, dim=1) * (self.commands[:, 4]>=0.71)
+        return torch.sum(height_error * feet_leteral_vel, dim=1) * (self.commands[:, 4]>=1)
     
     def _reward_feet_distance_lateral(self):
         cur_footpos_translated = self.feet_pos - self.root_states[:, 0:3].unsqueeze(1)
@@ -1151,7 +1151,7 @@ class LeggedRobot(BaseTask):
         for i in range(len(self.feet_indices)):
             footpos_in_body_frame[:, i, :] = quat_rotate_inverse(self.base_quat, cur_footpos_translated[:, i, :])
         foot_leteral_dis = torch.abs(footpos_in_body_frame[:, 0, 1] - footpos_in_body_frame[:, 1, 1])
-        return torch.clamp(foot_leteral_dis - self.cfg.rewards.least_feet_distance_lateral, max=0) + torch.clamp(-foot_leteral_dis + self.cfg.rewards.most_feet_distance_lateral, max=0) * (self.commands[:, 4] >= 0.735)
+        return torch.clamp(foot_leteral_dis - self.cfg.rewards.least_feet_distance_lateral, max=0) + torch.clamp(-foot_leteral_dis + self.cfg.rewards.most_feet_distance_lateral, max=0) * (self.commands[:, 4] >= 1)
     
     def _reward_knee_distance_lateral(self):
         cur_knee_pos_translated = self.rigid_body_states[:, self.knee_indices, :3].clone() - self.root_states[:, 0:3].unsqueeze(1)
@@ -1159,7 +1159,7 @@ class LeggedRobot(BaseTask):
         for i in range(len(self.knee_indices)):
             knee_pos_in_body_frame[:, i, :] = quat_rotate_inverse(self.base_quat, cur_knee_pos_translated[:, i, :])
         knee_lateral_dis = torch.abs(knee_pos_in_body_frame[:, 0, 1] - knee_pos_in_body_frame[:, 2, 1]) + torch.abs(knee_pos_in_body_frame[:, 1, 1] - knee_pos_in_body_frame[:, 3, 1])
-        return torch.clamp(knee_lateral_dis - self.cfg.rewards.least_knee_distance_lateral * 2, max=0) + torch.clamp(-knee_lateral_dis + self.cfg.rewards.most_knee_distance_lateral * 2, max=0) * (self.commands[:, 4] >= 0.735)
+        return torch.clamp(knee_lateral_dis - self.cfg.rewards.least_knee_distance_lateral * 2, max=0) + torch.clamp(-knee_lateral_dis + self.cfg.rewards.most_knee_distance_lateral * 2, max=0) * (self.commands[:, 4] >= 1)
     
     def _reward_feet_ground_parallel(self):
         feet_heights, feet_heights_var = self._get_feet_heights()
@@ -1171,7 +1171,7 @@ class LeggedRobot(BaseTask):
         right_foot_pos = self.rigid_body_states[:, self.right_foot_indices[0:3], :3].clone()
         feet_distances = torch.norm(left_foot_pos - right_foot_pos, dim=2)
         feet_distances_var = torch.var(feet_distances, dim=1)
-        return feet_distances_var * (self.commands[:, 4] >= 0.735)
+        return feet_distances_var * (self.commands[:, 4] >= 1)
     
     def _reward_smoothness(self):
         # second order smoothness
@@ -1234,5 +1234,5 @@ class LeggedRobot(BaseTask):
     def _reward_stand_still(self):
         # Penalize motion at zero commands
         contacts = torch.sum(self.contact_forces[:, self.feet_indices, 2] < 0.1, dim=-1)
-        error_sim = (contacts) * (self.commands[:, 4] >= 0.735)
+        error_sim = (contacts) * (self.commands[:, 4] >= 1)
         return error_sim * (torch.norm(self.commands[:, :3], dim=1) < 0.1)
