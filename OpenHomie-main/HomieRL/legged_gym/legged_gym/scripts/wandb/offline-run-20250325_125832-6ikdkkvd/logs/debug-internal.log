@@ -5,3 +5,10 @@
 {"time":"2025-03-25T12:58:33.051482602+08:00","level":"INFO","msg":"sender: started","stream_id":"6ikdkkvd"}
 {"time":"2025-03-25T12:58:33.051409922+08:00","level":"INFO","msg":"handler: started","stream_id":"6ikdkkvd"}
 {"time":"2025-03-25T12:58:33.057025754+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-25T15:11:35.557218747+08:00","level":"INFO","msg":"stream: closing","id":"6ikdkkvd"}
+{"time":"2025-03-25T15:11:35.557257337+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-25T15:11:35.558430407+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-25T15:11:35.558786197+08:00","level":"INFO","msg":"handler: closed","stream_id":"6ikdkkvd"}
+{"time":"2025-03-25T15:11:35.558801977+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"6ikdkkvd"}
+{"time":"2025-03-25T15:11:35.558824497+08:00","level":"INFO","msg":"sender: closed","stream_id":"6ikdkkvd"}
+{"time":"2025-03-25T15:11:35.558936407+08:00","level":"INFO","msg":"stream: closed","id":"6ikdkkvd"}

@@ -33,7 +33,7 @@ import numpy as np
 
 class H1_2RoughCfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.05]                                                              # x,y,z [m] 需要改动，以让h1_2能够直立
+        pos = [0.0, 0.0, 1.05]                                 # x,y,z [m] 需要改动，以让h1_2能够直立
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'left_hip_yaw_joint' : 0. ,   
            'left_hip_roll_joint' : 0,               
@@ -128,7 +128,7 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             lin_vel_y = [-0.5, 0.5]   # min max [m/s]
             ang_vel_yaw = [-0.8, 0.8]    # min max [rad/s]
             heading = [-3.14, 3.14]
-            height = [-0.8, 0.0]                 # 疑问，这个会对Height tracking 有影响吗  有的，一開始设置了-0.5 ，因为机器人多了0.3米，所以我下蹲距离（负数）增加0.3米
+            height = [-0.5, 0.0]                 # 疑问，这个会对Height tracking 有影响吗  有的，一開始设置了-0.5 ，因为机器人多了0.3米，所以我下蹲距离（负数）增加0.3米
 
     class asset( LeggedRobotCfg.asset ):
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/h1_2_description/h1_2_handless.urdf'
@@ -244,15 +244,15 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         soft_dof_pos_limit = 0.975
         soft_dof_vel_limit = 0.80
         soft_torque_limit = 0.95
-        base_height_target = 1.2   # 增加了0.3
+        base_height_target = 0.84   # 改动
         max_contact_force = 400.
         least_feet_distance = 0.2 
         
-        least_feet_distance_lateral = 0.3   # 去看，决定了行走步态（knee也是如此），增加了0.1
-        most_feet_distance_lateral = 0.55 
+        least_feet_distance_lateral = 0.25   # 去看，决定了行走步态（knee也是如此），增加了0.1
+        most_feet_distance_lateral = 0.40 
         
-        least_knee_distance_lateral = 0.3   # 相对应的knee
-        most_knee_distance_lateral = 0.55 
+        least_knee_distance_lateral = 0.25   # 相对应的knee
+        most_knee_distance_lateral = 0.40
         
         clearance_height_target = 0.14
         

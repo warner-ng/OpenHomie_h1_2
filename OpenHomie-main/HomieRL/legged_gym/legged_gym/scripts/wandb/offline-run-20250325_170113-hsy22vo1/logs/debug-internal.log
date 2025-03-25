@@ -1,0 +1,7 @@
+{"time":"2025-03-25T17:01:13.445585679+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/wubinghuan/projects/OpenHomie_h1_2/OpenHomie-main/HomieRL/legged_gym/legged_gym/scripts/wandb/offline-run-20250325_170113-hsy22vo1/logs/debug-core.log"}
+{"time":"2025-03-25T17:01:13.654843716+08:00","level":"INFO","msg":"created new stream","id":"hsy22vo1"}
+{"time":"2025-03-25T17:01:13.654880486+08:00","level":"INFO","msg":"stream: started","id":"hsy22vo1"}
+{"time":"2025-03-25T17:01:13.655102786+08:00","level":"INFO","msg":"handler: started","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:01:13.655143836+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:01:13.655352786+08:00","level":"INFO","msg":"sender: started","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:01:13.663021789+08:00","level":"INFO","msg":"Starting system monitor"}
