@@ -41,15 +41,20 @@ class H1_2RoughCfg( LeggedRobotCfg ):
            'left_knee_joint' : 0.3,       
            'left_ankle_pitch_joint' : -0.2,     
            'left_ankle_roll_joint' : 0,     
+           
            'right_hip_yaw_joint' : 0., 
            'right_hip_roll_joint' : 0, 
            'right_hip_pitch_joint' : -0.1,                                       
            'right_knee_joint' : 0.3,                                             
            'right_ankle_pitch_joint': -0.2,                              
            'right_ankle_roll_joint' : 0,         
+           
+           'torso_joint': 0.,
+           
             "waist_yaw_joint":0.,
             "waist_roll_joint": 0.,
             "waist_pitch_joint": 0.,
+            
             "left_shoulder_pitch_joint": 0.,
             "left_shoulder_roll_joint": 0.,
             "left_shoulder_yaw_joint": 0.,
@@ -57,28 +62,14 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             "left_wrist_roll_joint": 0.,
             "left_wrist_pitch_joint": 0.,
             "left_wrist_yaw_joint": 0.,
-            "left_hand_index_0_joint": 0.,
-            "left_hand_index_1_joint": 0.,
-            "left_hand_middle_0_joint": 0.,
-            "left_hand_middle_1_joint": 0.,
-            "left_hand_thumb_0_joint": 0.,
-            "left_hand_thumb_1_joint": 0.,
-            "left_hand_thumb_2_joint": 0.,
+
             "right_shoulder_pitch_joint": 0.,
             "right_shoulder_roll_joint": -0.,#-0.3
             "right_shoulder_yaw_joint": 0.,
             "right_elbow_joint": 0.,#0.8
             "right_wrist_roll_joint": 0.,
             "right_wrist_pitch_joint": 0.,
-            "right_wrist_yaw_joint": 0.,
-            "right_hand_index_0_joint": 0.,
-            "right_hand_index_1_joint": 0.,
-            "right_hand_middle_0_joint": 0.,
-            "right_hand_middle_1_joint": 0.,
-            "right_hand_thumb_0_joint": 0.,
-            "right_hand_thumb_1_joint": 0.,
-            "right_hand_thumb_2_joint": 0.,
-            'torso_joint': 0.,
+            "right_wrist_yaw_joint": 0.,    
            
         }
 
@@ -91,12 +82,14 @@ class H1_2RoughCfg( LeggedRobotCfg ):
                      'hip_pitch': 200,
                      'knee': 300,
                      'ankle': 40,
+                     # 少了一个torso
+                     # 为什么ankle有pitch 和 roll了，回去看一下parse_urdf
                      
                      "waist": 300,
                      "shoulder": 200,
+                     # 为什么shoulder也有pitch roll yaw
                      "wrist": 20,
                      "elbow": 100,
-                     "hand": 10
                     
                      }  # [N*m/rad]
         damping = {  'hip_yaw': 3,
@@ -104,11 +97,14 @@ class H1_2RoughCfg( LeggedRobotCfg ):
                      'hip_pitch': 3,
                      'knee': 5,
                      'ankle': 2,
+                     # 少了一个torso
+                     # 为什么ankle有pitch 和 roll了，回去看一下parse_urdf
                      "waist": 5,
                      "shoulder": 4,
+                     # 为什么shoulder也有pitch roll yaw
                      "wrist": 0.5,
                      "elbow": 1,
-                     "hand": 2
+
                      }  # [N*m/rad]  # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
@@ -246,6 +242,7 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         soft_torque_limit = 0.95
         base_height_target = 1.0   # 改动
         max_contact_force = 400.
+        
         least_feet_distance = 0.2 
         
         least_feet_distance_lateral = 0.30   # 去看，决定了行走步态（knee也是如此），增加了0.1
