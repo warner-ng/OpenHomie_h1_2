@@ -86,10 +86,10 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         # PD Drive parameters:
         control_type = 'M'
           # PD Drive parameters:
-        stiffness = {'hip_yaw': 100,
-                     'hip_roll': 100,
-                     'hip_pitch': 100,
-                     'knee': 150,
+        stiffness = {'hip_yaw': 200,
+                     'hip_roll': 200,
+                     'hip_pitch': 200,
+                     'knee': 300,
                      'ankle': 40,
                      
                      "waist": 300,
@@ -99,10 +99,10 @@ class H1_2RoughCfg( LeggedRobotCfg ):
                      "hand": 10
                     
                      }  # [N*m/rad]
-        damping = {  'hip_yaw': 2,
-                     'hip_roll': 2,
-                     'hip_pitch': 2,
-                     'knee': 4,
+        damping = {  'hip_yaw': 3,
+                     'hip_roll': 3,
+                     'hip_pitch': 3,
+                     'knee': 5,
                      'ankle': 2,
                      "waist": 5,
                      "shoulder": 4,
