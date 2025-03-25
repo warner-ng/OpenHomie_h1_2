@@ -237,6 +237,8 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             contact_momentum = 2.5e-4
             action_vanish = -1.0
             stand_still = -0.15    
+            
+            
         only_positive_rewards = False
         tracking_sigma = 0.25
         soft_dof_pos_limit = 0.975
@@ -245,10 +247,13 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         base_height_target = 0.90
         max_contact_force = 400.
         least_feet_distance = 0.2 
-        least_feet_distance_lateral = 0.2 #去看，决定了行走步态（knee也是如此）
-        most_feet_distance_lateral = 0.35 
-        most_knee_distance_lateral = 0.35 #相对应的knee
-        least_knee_distance_lateral = 0.2
+        
+        least_feet_distance_lateral = 0.3   # 去看，决定了行走步态（knee也是如此）
+        most_feet_distance_lateral = 0.55 
+        
+        least_knee_distance_lateral = 0.3   # 相对应的knee
+        most_knee_distance_lateral = 0.55 
+        
         clearance_height_target = 0.14
         
     class env( LeggedRobotCfg.rewards ):
