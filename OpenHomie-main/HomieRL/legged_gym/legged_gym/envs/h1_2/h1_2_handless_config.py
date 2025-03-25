@@ -244,11 +244,11 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         soft_dof_pos_limit = 0.975
         soft_dof_vel_limit = 0.80
         soft_torque_limit = 0.95
-        base_height_target = 0.90
+        base_height_target = 1.2   # 增加了0.3
         max_contact_force = 400.
         least_feet_distance = 0.2 
         
-        least_feet_distance_lateral = 0.3   # 去看，决定了行走步态（knee也是如此）
+        least_feet_distance_lateral = 0.3   # 去看，决定了行走步态（knee也是如此），增加了0.1
         most_feet_distance_lateral = 0.55 
         
         least_knee_distance_lateral = 0.3   # 相对应的knee
