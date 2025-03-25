@@ -1,0 +1,14 @@
+{"time":"2025-03-25T18:00:34.50960457+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.8","symlink path":"/home/wubinghuan/projects/OpenHomie_h1_2/OpenHomie-main/HomieRL/legged_gym/legged_gym/scripts/wandb/offline-run-20250325_180034-cb466iug/logs/debug-core.log"}
+{"time":"2025-03-25T18:00:34.722578988+08:00","level":"INFO","msg":"created new stream","id":"cb466iug"}
+{"time":"2025-03-25T18:00:34.722635708+08:00","level":"INFO","msg":"stream: started","id":"cb466iug"}
+{"time":"2025-03-25T18:00:34.722858528+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:00:34.722987888+08:00","level":"INFO","msg":"handler: started","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:00:34.723009348+08:00","level":"INFO","msg":"sender: started","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:00:34.72863163+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-25T18:15:47.412731531+08:00","level":"INFO","msg":"stream: closing","id":"cb466iug"}
+{"time":"2025-03-25T18:15:47.412775321+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-25T18:15:47.413667261+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-25T18:15:47.413928582+08:00","level":"INFO","msg":"handler: closed","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:15:47.413939372+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:15:47.413955162+08:00","level":"INFO","msg":"sender: closed","stream_id":"cb466iug"}
+{"time":"2025-03-25T18:15:47.414102572+08:00","level":"INFO","msg":"stream: closed","id":"cb466iug"}

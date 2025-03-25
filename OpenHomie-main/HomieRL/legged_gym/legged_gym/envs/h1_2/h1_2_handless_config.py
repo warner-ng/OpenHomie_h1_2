@@ -248,11 +248,11 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         max_contact_force = 400.
         least_feet_distance = 0.2 
         
-        least_feet_distance_lateral = 0.25   # 去看，决定了行走步态（knee也是如此），增加了0.1
-        most_feet_distance_lateral = 0.40 
+        least_feet_distance_lateral = 0.30   # 去看，决定了行走步态（knee也是如此），增加了0.1
+        most_feet_distance_lateral = 0.45 
         
-        least_knee_distance_lateral = 0.25   # 相对应的knee
-        most_knee_distance_lateral = 0.40
+        least_knee_distance_lateral = 0.30   # 相对应的knee
+        most_knee_distance_lateral = 0.45
         
         clearance_height_target = 0.14
         

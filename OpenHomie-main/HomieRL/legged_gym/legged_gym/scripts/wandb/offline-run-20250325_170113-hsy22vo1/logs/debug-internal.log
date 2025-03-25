@@ -5,3 +5,10 @@
 {"time":"2025-03-25T17:01:13.655143836+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"hsy22vo1"}
 {"time":"2025-03-25T17:01:13.655352786+08:00","level":"INFO","msg":"sender: started","stream_id":"hsy22vo1"}
 {"time":"2025-03-25T17:01:13.663021789+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-03-25T17:44:59.483775806+08:00","level":"INFO","msg":"stream: closing","id":"hsy22vo1"}
+{"time":"2025-03-25T17:44:59.483822986+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-03-25T17:44:59.484947346+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-03-25T17:44:59.485286867+08:00","level":"INFO","msg":"handler: closed","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:44:59.485302137+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:44:59.485323857+08:00","level":"INFO","msg":"sender: closed","stream_id":"hsy22vo1"}
+{"time":"2025-03-25T17:44:59.485459517+08:00","level":"INFO","msg":"stream: closed","id":"hsy22vo1"}
