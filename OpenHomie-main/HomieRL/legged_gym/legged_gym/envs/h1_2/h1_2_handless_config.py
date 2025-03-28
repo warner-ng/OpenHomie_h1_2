@@ -81,27 +81,26 @@ class H1_2RoughCfg( LeggedRobotCfg ):
                      'hip_roll': 200,
                      'hip_pitch': 200,
                      'knee': 300,
-                     'ankle': 40,
-                     # 少了一个torso
-                     # 为什么ankle有pitch 和 roll了，回去看一下parse_urdf
-                     
-                     "waist": 300,
-                     "shoulder": 200,
-                     # 为什么shoulder也有pitch roll yaw
-                     "wrist": 20,
-                     "elbow": 100,
+                     'ankle_pitch': 60,
+                     'ankle_roll': 40,
+                     "torso": 600,
+                     "shoulder_pitch": 80,
+                     "shoulder_roll": 80,
+                     "shoulder_yaw": 40,
+                     "wrist": 60,
+                     "elbow": 40,
                     
                      }  # [N*m/rad]
-        damping = {  'hip_yaw': 3,
-                     'hip_roll': 3,
-                     'hip_pitch': 3,
-                     'knee': 5,
-                     'ankle': 2,
-                     # 少了一个torso
-                     # 为什么ankle有pitch 和 roll了，回去看一下parse_urdf
-                     "waist": 5,
-                     "shoulder": 4,
-                     # 为什么shoulder也有pitch roll yaw
+        damping = {   'hip_yaw': 5.,
+                     'hip_roll': 5.,
+                     'hip_pitch': 5.,
+                     'knee': 7.5,
+                     'ankle_pitch': 1.,
+                     'ankle_roll': 0.3,
+                     "torso": 15,
+                     "shoulder_pitch": 2.,
+                     "shoulder_roll": 2.,
+                     "shoulder_yaw": 1.,
                      "wrist": 0.5,
                      "elbow": 1,
 
