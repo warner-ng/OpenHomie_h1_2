@@ -104,12 +104,12 @@ class H1_2RoughCfg( LeggedRobotCfg ):
                      "wrist": 0.5,
                      "elbow": 1,
 
-                     }  # [N*m/rad]  # [N*m*s/rad]
+                     }  # [N*m/rad]  # [N*m*s/rad] 
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.25
-        # decimation: Number of control action updates @ sim DT per policy DT
+        # decimation: Number of control action updates @ sim DT per policy DT   Decimation 的意思是“降采样”或“减少采样率”
         decimation = 4
-        hip_reduction = 1.0
+        hip_reduction = 1.0 # 未使用
 
     class commands( LeggedRobotCfg.commands ):
         curriculum = False # NOTE set True later
@@ -144,9 +144,9 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         upper_body_link = "torso_link"
         imu_link = "imu_in_pelvis"
         knee_names = ["left_knee_link", "left_hip_yaw_link", "right_knee_link", "right_hip_yaw_link"]
-        self_collision = 1
-        flip_visual_attachments = False
-        ankle_sole_distance = 0.02
+        self_collision = 1                # 1 is true吗?
+        flip_visual_attachments = False     # 没有使用
+        ankle_sole_distance = 0.02       # 脚底高度
 
         
     class domain_rand(LeggedRobotCfg.domain_rand):
@@ -160,7 +160,8 @@ class H1_2RoughCfg( LeggedRobotCfg ):
         actuation_offset_range = [-0.05, 0.05]
 
         randomize_payload_mass = use_random
-        payload_mass_range = [-5, 10]
+        # payload_mass_range = [-5, 10]
+        payload_mass_range = [-10, 15]
         
         hand_payload_mass_range = [-0.1, 0.3]
 
@@ -219,6 +220,9 @@ class H1_2RoughCfg( LeggedRobotCfg ):
             feet_ground_parallel = -2.
             feet_parallel = -3.0
             smoothness = -0.05
+            
+            
+            
             joint_power = -2e-5
             feet_stumble = -1.5
             torques = -2.5e-6
