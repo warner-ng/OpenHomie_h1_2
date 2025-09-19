@@ -34,6 +34,7 @@ import os
 import onnxruntime as ort
 
 import isaacgym
+from isaacgym import gymapi
 from legged_gym.envs import *
 from legged_gym.utils import  get_args, export_policy_as_jit, task_registry, Logger
 
@@ -77,6 +78,30 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
     env_cfg.env.upper_teleop = False
     # prepare environment
     env, _ = task_registry.make_env(name=args.task, args=args, env_cfg=env_cfg)
+    
+    # Add keyboard event subscriptions for height control
+    if hasattr(env, 'gym') and hasattr(env, 'viewer') and env.viewer is not None:
+        # Subscribe to Q and E keys for height control
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_Q, "height_increase")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_E, "height_decrease")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_R, "reset_height")
+        # Fine height control
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_1, "height_increase_fine")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_2, "height_decrease_fine")
+        print("Keyboard controls added:")
+        print("  Q: Increase height (+0.02)")
+        print("  E: Decrease height (-0.02)")
+        print("  1: Fine increase height (+0.005)")
+        print("  2: Fine decrease height (-0.005)")
+        print("  R: Reset height to default (0.74)")
+    
+    # Height control parameters
+    current_height = height
+    height_step = 0.02
+    height_step_fine = 0.005
+    min_height = 0.1  # Safety minimum
+    max_height = 1.2  # Safety maximum
+    default_height = 0.74
     env.commands[:, 0] = x_vel
     env.commands[:, 1] = y_vel
     env.commands[:, 2] = yaw_vel
@@ -99,14 +124,41 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
     camera_vel = np.array([1., 1., 0.])
     camera_direction = np.array(env_cfg.viewer.lookat) - np.array(env_cfg.viewer.pos)
     env.reset_idx(torch.arange(env.num_envs).to("cuda:0"))
+    step_count = 0
     for _ in range(10*int(env.max_episode_length)):
         env.action_curriculum_ratio = 1.0
+        
+        # Check for keyboard events for height control
+        if hasattr(env, 'gym') and hasattr(env, 'viewer') and env.viewer is not None:
+            for evt in env.gym.query_viewer_action_events(env.viewer):
+                if evt.action == "height_increase" and evt.value > 0:
+                    current_height = min(current_height + height_step, max_height)
+                    print(f"Height increased to: {current_height:.3f}")
+                elif evt.action == "height_decrease" and evt.value > 0:
+                    current_height = max(current_height - height_step, min_height)
+                    print(f"Height decreased to: {current_height:.3f}")
+                elif evt.action == "height_increase_fine" and evt.value > 0:
+                    current_height = min(current_height + height_step_fine, max_height)
+                    print(f"Height fine increased to: {current_height:.3f}")
+                elif evt.action == "height_decrease_fine" and evt.value > 0:
+                    current_height = max(current_height - height_step_fine, min_height)
+                    print(f"Height fine decreased to: {current_height:.3f}")
+                elif evt.action == "reset_height" and evt.value > 0:
+                    current_height = default_height
+                    print(f"Height reset to default: {current_height:.3f}")
+        
+        # Display current height every 200 steps to avoid spam
+        if step_count % 200 == 0:
+            print(f"Current height: {current_height:.3f} | Q/E: ±0.02 | 1/2: ±0.005 | R: reset")
+        
         actions = policy(obs.detach())
         env.commands[:, 0] = x_vel
         env.commands[:, 1] = y_vel
         env.commands[:, 2] = yaw_vel
-        env.commands[:, 4] = height
+        env.commands[:, 4] = current_height  # Use dynamic height instead of static height
         obs, _, _, _, _, _, _ = env.step(actions.detach())
+        step_count += 1
+        
         if MOVE_CAMERA:
             camera_position += camera_vel * env.dt
             env.set_camera(camera_position, camera_position + camera_direction)
@@ -116,4 +168,14 @@ if __name__ == '__main__':
     RECORD_FRAMES = False
     MOVE_CAMERA = False
     args = get_args()
-    play(args, x_vel=0., y_vel=0., yaw_vel=0., height=0.24)
+    print("\n=== Interactive Height Control ===")
+    print("Keyboard Controls:")
+    print("  Q: Increase height (+0.02)")
+    print("  E: Decrease height (-0.02)")
+    print("  1: Fine increase height (+0.005)")
+    print("  2: Fine decrease height (-0.005)")
+    print("  R: Reset height to default (0.74)")
+    print("  ESC: Quit simulation")
+    print("Height range: 0.1 - 1.2 meters")
+    print("=====================================\n")
+    play(args, x_vel=0., y_vel=0., yaw_vel=0., height=0.74)
