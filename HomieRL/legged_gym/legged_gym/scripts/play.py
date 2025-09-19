@@ -81,19 +81,37 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
     
     # Add keyboard event subscriptions for height control
     if hasattr(env, 'gym') and hasattr(env, 'viewer') and env.viewer is not None:
-        # Subscribe to Q and E keys for height control
+        # Height control
         env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_Q, "height_increase")
         env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_E, "height_decrease")
         env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_R, "reset_height")
-        # Fine height control
         env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_1, "height_increase_fine")
         env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_2, "height_decrease_fine")
+        
+        # Movement control
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_W, "move_forward")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_S, "move_backward")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_A, "move_left")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_D, "move_right")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_Z, "turn_left")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_X, "turn_right")
+        env.gym.subscribe_viewer_keyboard_event(env.viewer, gymapi.KEY_SPACE, "stop_all")
+        
         print("Keyboard controls added:")
+        print("  === HEIGHT CONTROL ===")
         print("  Q: Increase height (+0.02)")
         print("  E: Decrease height (-0.02)")
         print("  1: Fine increase height (+0.005)")
         print("  2: Fine decrease height (-0.005)")
         print("  R: Reset height to default (0.74)")
+        print("  === MOVEMENT CONTROL ===")
+        print("  W: Move forward")
+        print("  S: Move backward") 
+        print("  A: Move left")
+        print("  D: Move right")
+        print("  Z: Turn left")
+        print("  X: Turn right")
+        print("  SPACE: Stop all movement")
     
     # Height control parameters
     current_height = height
@@ -102,6 +120,16 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
     min_height = 0.1  # Safety minimum
     max_height = 1.2  # Safety maximum
     default_height = 0.74
+    
+    # Movement control parameters  
+    current_x_vel = x_vel
+    current_y_vel = y_vel
+    current_yaw_vel = yaw_vel
+    vel_step = 0.1  # Speed increment per keypress
+    max_forward_vel = 1.2  # Based on training range
+    max_backward_vel = -0.8
+    max_lateral_vel = 0.5
+    max_yaw_vel = 0.8
     env.commands[:, 0] = x_vel
     env.commands[:, 1] = y_vel
     env.commands[:, 2] = yaw_vel
@@ -128,9 +156,10 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
     for _ in range(10*int(env.max_episode_length)):
         env.action_curriculum_ratio = 1.0
         
-        # Check for keyboard events for height control
+        # Check for keyboard events for height and movement control
         if hasattr(env, 'gym') and hasattr(env, 'viewer') and env.viewer is not None:
             for evt in env.gym.query_viewer_action_events(env.viewer):
+                # Height controls
                 if evt.action == "height_increase" and evt.value > 0:
                     current_height = min(current_height + height_step, max_height)
                     print(f"Height increased to: {current_height:.3f}")
@@ -146,16 +175,41 @@ def play(args, x_vel=0.0, y_vel=0.0, yaw_vel=0.0, height=0.74):
                 elif evt.action == "reset_height" and evt.value > 0:
                     current_height = default_height
                     print(f"Height reset to default: {current_height:.3f}")
+                
+                # Movement controls
+                elif evt.action == "move_forward" and evt.value > 0:
+                    current_x_vel = min(current_x_vel + vel_step, max_forward_vel)
+                    print(f"Forward velocity: {current_x_vel:.2f} m/s")
+                elif evt.action == "move_backward" and evt.value > 0:
+                    current_x_vel = max(current_x_vel - vel_step, max_backward_vel)
+                    print(f"Backward velocity: {current_x_vel:.2f} m/s")
+                elif evt.action == "move_left" and evt.value > 0:
+                    current_y_vel = min(current_y_vel + vel_step, max_lateral_vel)
+                    print(f"Left velocity: {current_y_vel:.2f} m/s")
+                elif evt.action == "move_right" and evt.value > 0:
+                    current_y_vel = max(current_y_vel - vel_step, -max_lateral_vel)
+                    print(f"Right velocity: {current_y_vel:.2f} m/s")
+                elif evt.action == "turn_left" and evt.value > 0:
+                    current_yaw_vel = min(current_yaw_vel + vel_step, max_yaw_vel)
+                    print(f"Turn left velocity: {current_yaw_vel:.2f} rad/s")
+                elif evt.action == "turn_right" and evt.value > 0:
+                    current_yaw_vel = max(current_yaw_vel - vel_step, -max_yaw_vel)
+                    print(f"Turn right velocity: {current_yaw_vel:.2f} rad/s")
+                elif evt.action == "stop_all" and evt.value > 0:
+                    current_x_vel = 0.0
+                    current_y_vel = 0.0
+                    current_yaw_vel = 0.0
+                    print("All movement stopped!")
         
-        # Display current height every 200 steps to avoid spam
+        # Display current status every 200 steps to avoid spam
         if step_count % 200 == 0:
-            print(f"Current height: {current_height:.3f} | Q/E: ±0.02 | 1/2: ±0.005 | R: reset")
+            print(f"Status - Height: {current_height:.3f}m, Vel: [{current_x_vel:.2f}, {current_y_vel:.2f}, {current_yaw_vel:.2f}]")
         
         actions = policy(obs.detach())
-        env.commands[:, 0] = x_vel
-        env.commands[:, 1] = y_vel
-        env.commands[:, 2] = yaw_vel
-        env.commands[:, 4] = current_height  # Use dynamic height instead of static height
+        env.commands[:, 0] = current_x_vel   # Use dynamic x velocity
+        env.commands[:, 1] = current_y_vel   # Use dynamic y velocity
+        env.commands[:, 2] = current_yaw_vel # Use dynamic yaw velocity
+        env.commands[:, 4] = current_height  # Use dynamic height
         obs, _, _, _, _, _, _ = env.step(actions.detach())
         step_count += 1
         
@@ -168,14 +222,20 @@ if __name__ == '__main__':
     RECORD_FRAMES = False
     MOVE_CAMERA = False
     args = get_args()
-    print("\n=== Interactive Height Control ===")
-    print("Keyboard Controls:")
-    print("  Q: Increase height (+0.02)")
-    print("  E: Decrease height (-0.02)")
-    print("  1: Fine increase height (+0.005)")
-    print("  2: Fine decrease height (-0.005)")
+    print("\n=== Interactive Robot Control ===")
+    print("HEIGHT CONTROL:")
+    print("  Q/E: Increase/Decrease height (±0.02)")
+    print("  1/2: Fine height control (±0.005)")
     print("  R: Reset height to default (0.74)")
+    print("\nMOVEMENT CONTROL:")
+    print("  W/S: Move forward/backward")
+    print("  A/D: Move left/right")
+    print("  Z/X: Turn left/right")
+    print("  SPACE: Stop all movement")
+    print("\nOTHER:")
     print("  ESC: Quit simulation")
-    print("Height range: 0.1 - 1.2 meters")
+    print("=====================================")
+    print("Velocity ranges: X[-0.8,1.2] Y[-0.5,0.5] Yaw[-0.8,0.8]")
+    print("Height range: [0.1,1.2] meters")
     print("=====================================\n")
     play(args, x_vel=0., y_vel=0., yaw_vel=0., height=0.74)
